@@ -1,0 +1,1 @@
+<visualizations><visualization-list name="ajax" show-in-web="true" view-mode="51"><visualization attribute-minimum="1" desc="ApexCharts" drop-zones="plugins.apex_chart.apex_chartDropZones" editor-model="plugins.apex_chart.apex_chartEditorModel" is-mojo="true" metric-minimum="1" scope="19" style-name="apex_chart" widget-type="7" /></visualization-list></visualizations>
