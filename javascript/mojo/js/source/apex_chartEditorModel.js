@@ -1,4 +1,4 @@
-(function () { 
+(function () {
     if (!mstrmojo.plugins.apex_chart) {
         mstrmojo.plugins.apex_chart = {};
     }
@@ -14,7 +14,7 @@
         {
             scriptClass: "mstrmojo.plugins.apex_chart.apex_chartEditorModel",
             cssClass: "apex_charteditormodel",
-            getCustomProperty: function getCustomProperty(){
+            getCustomProperty: function getCustomProperty() {
 
 
                 var $WT = mstrmojo.vi.models.editors.CustomVisEditorModel.WIDGET_TYPE;
@@ -133,8 +133,23 @@
                             ]
                         }
                     ]
-                }]
-                // END getCustomProperties
-            }
-})}());
+                }, {
+                    name: 'New editor page',
+                    value: [
+                        {
+                            style: $WT.EDITORGROUP,
+                            items: [
+                                {
+                                    labelText: 'Вертикальні підписи метрик', 
+                                    style: $WT.CHECKBOXANDLABEL,
+                                    propertyName: 'verticalAxesesLabels'
+                                }
+                            ]
+                }
+                ]
+            }]
+            // END getCustomProperties
+        }
+        })
+}());
 //@ sourceURL=apex_chartEditorModel.js

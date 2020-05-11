@@ -1,6 +1,39 @@
 let g_mstrApi;
-const dataModeRows = mstrmojo.models.template.DataInterface.ENUM_RAW_DATA_FORMAT.ROWS;
-const dataModeRowsAdv = mstrmojo.models.template.DataInterface.ENUM_RAW_DATA_FORMAT.ROWS_ADV;
+
+let APEX_PROPERTIES = {
+    showLegend: {
+        str: 'showLegend',
+        default: 'true'
+    },
+    sparkline: {
+        name: 'sparkline',
+        default: 'false'
+    },
+    hideToolbar: {
+        str: 'hideToolbar',
+        default: 'false'
+    },
+    lineType: {
+        str: 'lineType',
+        default: 'smooth'
+    },
+    chartType: {
+        str: 'chartType',
+        default: 'area'
+    },
+    barDirection: {
+        str: 'barDirection',
+        default: 'horizontal'
+    },
+    isStacked: {
+        str: 'isStacked',
+        default: 'false'
+    },
+    verticalAxesesLabels: {
+        str: 'verticalAxesesLabels',
+        default: 'true'
+    }
+};
 
 function main(mstrApi) {
     if (typeof mstrApi == 'object') {
@@ -11,6 +44,7 @@ function main(mstrApi) {
         alert(`Error. Mstr API wasn't provided to the main function`);
         throw new Error();
     }
+
     let props = prepareVisOptions();
     let data = getData();
     if (!props['chartType']) {
@@ -70,7 +104,7 @@ function main(mstrApi) {
 
 function getData() {
     let gridData = g_mstrApi.dataInterface;
-    let data = gridData.getRawData(dataModeRowsAdv);
+    let data = gridData.getRawData(mstrmojo.models.template.DataInterface.ENUM_RAW_DATA_FORMAT.ROWS_ADV);
     let numberOfRows = gridData.getTotalRows();
     let dataInfo = {
         apexOptionsData: {
@@ -117,12 +151,19 @@ function getData() {
 }
 
 function prepareVisOptions() {
-    /* g_mstrApi.setDefaultPropertyValues({
-        'line': false,
-        'area': true,
-        'bar': false
-    }) */
+    let is10Point2 = true;
+    if (typeof g_mstrApi.addThresholdMenuItem == 'function') {
+        is10Point2 = false;
+    }
 
+    if (!is10Point2) {
+        let obj = {};
+        Object.keys(APEX_PROPERTIES).forEach(el => {
+            obj[APEX_PROPERTIES[el].str] = APEX_PROPERTIES[el].default;
+        })
+        alert(obj.chartType);
+        g_mstrApi.setDefaultPropertyValues(obj);
+    }
     return g_mstrApi.getProperties();
 
 }
